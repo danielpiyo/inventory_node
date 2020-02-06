@@ -22,7 +22,7 @@ const limit = rateLimit({
 app.use(xss());
 
 // declare the api route
-const api = require('./routes/apiv1')
+const api = require('./routes/api')
 
 // enable cors
 app.use(cors());
@@ -30,6 +30,9 @@ app.use(cors());
 // enable parser for post data
 app.use(bodyParser.json({limit: '20kb'}));
 app.use(bodyParser.urlencoded({extended:false}));
+
+// set api routes
+app.use('/api', api);
 
 // catch all routes and return to home
 app.get('*', (req,res)=>{
@@ -42,5 +45,13 @@ app.set('port', port);
 const server = http.createServer(app);
 // make the server listen to the already set port
 server.listen(port, ()=>{
-    console.log(`+++++++++++++++++++++ Email Server Listening on port ${port} ++++++++++++++++++++++++++`)
+    console.log(`
+                   +++++++++++++++++++++ Inventory Server Running +++++++++++++++++++++++++++++++ 
+                                            *******************
+                                           GOOD THINGS TAKE TIME 
+                                              PORT::  ${port}
+                                            ******************                                        
+                      ++++++++++++++++++++++  Inventory Server Running ++++++++++++++++++++++++++++++                                        
+    `
+    )
 })
